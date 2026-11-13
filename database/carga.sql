@@ -1,1 +1,2 @@
 -- Dados de teste, que rodam logo depois do schema.sql.
+-- coloca dados de teste dentro dessas tabelas, para o sistema e os gráficos terem o que mostrar.
