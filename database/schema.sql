@@ -1,0 +1,1 @@
+-- Script que cria o banco do zero, com todas as restrições. Deve rodar sem erro num  PostgreSQL vazio
