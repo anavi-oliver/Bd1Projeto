@@ -1,0 +1,1 @@
+-- Dados de teste, que rodam logo depois do schema.sql.
