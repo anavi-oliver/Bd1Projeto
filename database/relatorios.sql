@@ -1,1 +1,2 @@
 -- As consultas de cada relatório, com um comentário dizendo qual relatório  atendem
+-- guarda os SELECT que respondem perguntas sobre esses dados (média por tema, quem não respondeu). Cada um vira uma tela com tabela e gráfico.
