@@ -2,11 +2,6 @@
 -- cria a estrutura: as tabelas, as chaves e as restrições. É o DER traduzido para SQL.
 --  ( DDL )
 
---obs:
--- id SERIAL PRIMARY KEY  igual fazer  id_grupo INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
--- lembrar de unique, text e pq n pode not null, é errado o jeito q eu fiz as fk?
-
-
 ------------------------------------------------------------------------------
 -- camada1 sem fk
 CREATE TABLE grupo ( 
@@ -48,33 +43,31 @@ CREATE TABLE questao(
 ----------------------------- camada3
 
 CREATE TABLE avaliacao_usuario(
-    id_avaliacao INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
-    id_usuario INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
-    FOREIGN KEY (id_avaliacao) REFERENCES avaliacao(id_avaliacao),
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+    id_avaliacao INT NOT NULL REFERENCES avaliacao (id_avaliacao),
+    id_usuario   INT NOT NULL REFERENCES usuario (id_usuario),
+    PRIMARY KEY (id_avaliacao, id_usuario)
 );
 CREATE TABLE avaliacao_questao(
-    id_avaliacao INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
-    id_questao INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
-    ordem INT NOT NULL CHECK (ordem > 0),
-    FOREIGN KEY (id_avaliacao) REFERENCES avaliacao(id_avaliacao),
-    FOREIGN KEY (id_questao) REFERENCES questao(id_questao),
+    id_avaliacao INT NOT NULL REFERENCES avaliacao (id_avaliacao),
+    id_questao INT NOT NULL REFERENCES questao (id_questao),
+    ordemINT NOT NULL CHECK (ordem > 0),
+    PRIMARY KEY (id_avaliacao, id_questao),
     UNIQUE (id_avaliacao, ordem)
 );
 
 --------------------------------camada 4
 CREATE TABLE resposta(
-    id_avaliacao INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
-    id_usuario INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
-    id_questao INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
-    valor INT CHECK (valor BETWEEN 1 AND 5),
+    id_usuario INT NOT NULL,
+    id_avaliacao INT NOT NULL,
+    id_questao INT NOT NULL,
+    valor SMALLINT CHECK (valor BETWEEN 1 AND 5),
     texto TEXT,
 
-    FOREIGN KEY (id_avaliacao) REFERENCES avaliacao(id_avaliacao),
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY (id_questao) REFERENCES questao(id_questao),
+    PRIMARY KEY (id_usuario, id_avaliacao, id_questao),
+    FOREIGN KEY (id_avaliacao, id_usuario) REFERENCES avaliacao_usuario (id_avaliacao, id_usuario),
+    FOREIGN KEY (id_avaliacao, id_questao) REFERENCES avaliacao_questao (id_avaliacao, id_questao),
 
     CHECK ((valor IS NOT NULL AND texto IS NULL)
-            OR (valor IS NULL AND texto IS NOT NULL))
+        OR (valor IS NULL AND texto IS NOT NULL))
     
 );
