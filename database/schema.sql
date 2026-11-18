@@ -2,20 +2,23 @@
 -- cria a estrutura: as tabelas, as chaves e as restrições. É o DER traduzido para SQL.
 --  ( DDL )
 
-------------------------------------------------------------------------------
--- camada1 sem fk
-CREATE TABLE grupo ( 
-    id_grupo INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
-    nome VARCHAR(80) NOT NULL UNIQUE
-    );
+CREATE EXTENSION IF NOT EXISTS pgcrypto; -- pra faze senha criptografada (hash)
+DROP TABLE IF EXISTS resposta, avaliacao_questao, avaliacao_usuario, questao, usuario, avaliacao, tema, grupo CASCADE;
 
-CREATE TABLE tema (
-    id_tema INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
+------------------------------------------------------------------------------
+-- camada 1: sem fk
+CREATE TABLE grupo (
+    id_grupo INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nome VARCHAR(80) NOT NULL UNIQUE
 );
 
-CREATE TABLE avaliacao(
-    id_avaliacao INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
+CREATE TABLE tema (
+    id_tema INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nome VARCHAR(80) NOT NULL UNIQUE
+);
+
+CREATE TABLE avaliacao (
+    id_avaliacao INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     titulo VARCHAR(80) NOT NULL,
     descricao TEXT,
     data_aplicacao DATE NOT NULL,
@@ -24,39 +27,41 @@ CREATE TABLE avaliacao(
     CHECK (hora_fim > hora_inicio)
 );
 
-------------------------- CAMADA 2
-    CREATE TABLE usuario(
-    id_usuario INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
+------------------------- camada 2
+CREATE TABLE usuario (
+    id_usuario INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nome VARCHAR(80) NOT NULL,
-    email VARCHAR(40) NOT NULL UNIQUE,
+    email VARCHAR(120) NOT NULL UNIQUE,
     id_grupo INTEGER NOT NULL,
+    senha_hash TEXT NOT NULL,
     FOREIGN KEY (id_grupo) REFERENCES grupo(id_grupo)
-    );
-
-CREATE TABLE questao(
-    id_qustao INT GENERATED AS ALWAYS IDENTITY PRIMARY KEY,
-    enunciado TEXT NOT NULL,
-    tipo VARCHAR(10) NOT NULL CHECK (tipo IN ('multipla', 'text')),
-    FOREIGN KEY id_tema REFERENCES tema(id_tema)
 );
 
------------------------------ camada3
+CREATE TABLE questao (
+    id_questao INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    enunciado TEXT NOT NULL,
+    tipo VARCHAR(10) NOT NULL CHECK (tipo IN ('ESCALA', 'TEXTO')),
+    id_tema INTEGER NOT NULL,
+    FOREIGN KEY (id_tema) REFERENCES tema(id_tema)
+);
 
-CREATE TABLE avaliacao_usuario(
+------------------------ camada 3
+CREATE TABLE avaliacao_usuario (
     id_avaliacao INT NOT NULL REFERENCES avaliacao (id_avaliacao),
-    id_usuario   INT NOT NULL REFERENCES usuario (id_usuario),
+    id_usuario INT NOT NULL REFERENCES usuario (id_usuario),
     PRIMARY KEY (id_avaliacao, id_usuario)
 );
-CREATE TABLE avaliacao_questao(
+
+CREATE TABLE avaliacao_questao (
     id_avaliacao INT NOT NULL REFERENCES avaliacao (id_avaliacao),
     id_questao INT NOT NULL REFERENCES questao (id_questao),
-    ordemINT NOT NULL CHECK (ordem > 0),
+    ordem INT NOT NULL CHECK (ordem > 0),
     PRIMARY KEY (id_avaliacao, id_questao),
     UNIQUE (id_avaliacao, ordem)
 );
 
---------------------------------camada 4
-CREATE TABLE resposta(
+-------------------------------- camada 4
+CREATE TABLE resposta (
     id_usuario INT NOT NULL,
     id_avaliacao INT NOT NULL,
     id_questao INT NOT NULL,
@@ -69,5 +74,4 @@ CREATE TABLE resposta(
 
     CHECK ((valor IS NOT NULL AND texto IS NULL)
         OR (valor IS NULL AND texto IS NOT NULL))
-    
 );
