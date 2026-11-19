@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Questões</title>
+</head>
+
+<body>
+    <h2>Questões</h2>
+    <table border="1">
+        <thead>
+            <tr><th>#</th><th>Enunciado</th><th>Tipo</th><th>Tema</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="q : ${questoes}">
+                <td th:text="${q.idQuestao}"></td>
+                <td th:text="${q.enunciado}"></td>
+                <td th:text="${q.tipo}"></td>
+                <td th:text="${q.nomeTema}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
