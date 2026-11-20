@@ -14,6 +14,7 @@ public class QuestaoDAO {
         this.jdbc = jdbc;
     }
 
+    //listar
     public List<Questao> listar() { // 3 aspas: guardar textos em varias linhas
         String sql = """
             SELECT q.id_questao, q.enunciado, q.tipo, q.id_tema, t.nome AS nome_tema
@@ -33,6 +34,12 @@ public class QuestaoDAO {
             q.setNomeTema(rs.getString("nome_tema"));
             return q;
         });
+    }
+
+    //inserir: Os ? são preenchidos pelos valores na mesma ordem
+    public void inserir(Questao q) {
+        String sql = "INSERT INTO questao (enunciado, tipo, id_tema) VALUES (?, ?, ?)";
+        jdbc.update(sql, q.getEnunciado(), q.getTipo(), q.getIdTema());
     }
 } 
 
