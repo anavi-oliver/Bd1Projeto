@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Avaliações</title>
+</head>
+<body>
+    <p><a th:href="@{/questoes}">Questões</a> | <a th:href="@{/avaliacoes}">Avaliações</a> | <a th:href="@{/logout}">Sair</a></p>
+    <h2>Avaliações</h2>
+    <table border="1">
+        <thead>
+            <tr><th>#</th><th>Título</th><th>Descrição</th><th>Data</th><th>Início</th><th>Fim</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="a : ${avaliacoes}">
+                <td th:text="${a.idAvaliacao}"></td>
+                <td th:text="${a.titulo}"></td>
+                <td th:text="${a.descricao}"></td>
+                <td th:text="${#temporals.format(a.dataAplicacao, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#temporals.format(a.horaInicio, 'HH:mm')}"></td>
+                <td th:text="${#temporals.format(a.horaFim, 'HH:mm')}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <p><a th:href="@{/avaliacoes/nova}">Nova avaliação</a></p>
+</body>
+</html>
