@@ -1,14 +1,19 @@
 # EM DESENVOLVIMENTO
 # Sistema de Avaliações: Pesquisa de Satisfação
 Projeto da disciplina **Banco de Dados I (UEL)**, Prof. Dr. Anderson Paulo Avila Santos.
+
 Sistema web de avaliações, com banco de dados PostgreSQL, em que é possível cadastrar questões, montar avaliações com essas questões, indicar quem deve responder cada avaliação, registrar as respostas e, no fim, ver relatórios com tabelas e gráficos sobre os resultados.
 
-## Integrantes:
-Ana Vitória Oliver Machado (Ciência da Computação)
+**Integrantes:** Ana Vitória Oliver Machado (Ciência da Computação)
 
+## Sumário
+- [Natureza escolhida](#natureza-escolhida)
+- [Como rodar](#como-rodar)
+- [Descrição dos relatórios](#descrição-dos-relatórios)
+---
 ## Natureza escolhida
 Pesquisa de satisfação ou de opinião.
-Particularidade: Questões em escala de 1 a 5 agrupadas por tema. Respostas podem ser de escolha ou texto livre. Os relatórios comparam temas (infraestrutura, atendimento, conteúdo etc.), períodos e grupos de  respondentes.
+**Particularidade:** Questões em escala de 1 a 5 agrupadas por tema. Respostas podem ser de escolha ou texto livre. Os relatórios comparam temas (infraestrutura, atendimento, conteúdo etc.), períodos e grupos de  respondentes.
 
 As respostas ficam identificadas (ligadas ao usuário).
 
@@ -47,6 +52,7 @@ esquema relacional:
 
 As restrições de integridade (`PRIMARY KEY`, `FOREIGN KEY`, `NOT NULL`, `UNIQUE`, `CHECK`) estão no `database/schema.sql`.
 
+---
 ## Como rodar
 ### Requisitos
 - JDK 17 ou superior
@@ -109,6 +115,7 @@ Todos os 24 usuários da carga (`usuario1@exemplo.com` até `usuario24@exemplo.c
 
   A carga cria 4 grupos, 5 temas, 24 usuários, 30 questões (25 de escala e 5 de texto livre), 5 avaliações e mais de mil respostas. As notas de escala são geradas com `random()` a partir de uma semente fixa (`setseed`), então a carga produz sempre os mesmos dados.
 
+---
 ## Descrição dos relatórios
 
 Cada relatório tem uma tabela e um gráfico, em [`database/relatorios.sql`](database/relatorios.sql).
