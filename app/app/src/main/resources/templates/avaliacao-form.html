@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova avaliação</title>
+</head>
+<body>
+    <h2>Nova avaliação</h2>
+    <form th:action="@{/avaliacoes}" th:object="${avaliacao}" method="post">
+        <label for="titulo">Título:</label><br>
+        <input type="text" th:field="*{titulo}" id="titulo" size="50">
+        <span th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+        <br><br>
+
+        <label for="descricao">Descrição:</label><br>
+        <textarea th:field="*{descricao}" id="descricao" rows="3" cols="60"></textarea>
+        <br><br>
+
+        <label for="dataAplicacao">Data:</label>
+        <input type="date" th:field="*{dataAplicacao}" id="dataAplicacao">
+        <span th:if="${#fields.hasErrors('dataAplicacao')}" th:errors="*{dataAplicacao}"></span>
+        <br><br>
+
+        <label for="horaInicio">Início:</label>
+        <input type="time" th:field="*{horaInicio}" id="horaInicio">
+        <span th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}"></span>
+        <br><br>
+
+        <label for="horaFim">Fim:</label>
+        <input type="time" th:field="*{horaFim}" id="horaFim">
+        <span th:if="${#fields.hasErrors('horaFim')}" th:errors="*{horaFim}"></span>
+        <br><br>
+
+        <input type="submit" value="Salvar">
+        <a th:href="@{/avaliacoes}">Cancelar</a>
+    </form>
+</body>
+</html>
