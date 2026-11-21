@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Montar avaliação</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
 </head>
-<body>
-    <p><a th:href="@{/questoes}">Questões</a> | <a th:href="@{/avaliacoes}">Avaliações</a> | <a th:href="@{/logout}">Sair</a></p>
-    <h2>Montar avaliação</h2>
-    <p><strong th:text="${avaliacao.titulo}"></strong>
-       (<span th:text="${#temporals.format(avaliacao.dataAplicacao, 'dd/MM/yyyy')}"></span>)</p>
 
-    <p th:if="${bloqueada}" style="color: red;">
+<body class="fundo-avaliacao">
+    <div th:replace="~{fragments :: topo}"></div>
+
+    <h2>Montar avaliação</h2>
+    <h3 style="text-align: center;">
+        <strong th:text="${avaliacao.titulo}"></strong>
+        (<span th:text="${#temporals.format(avaliacao.dataAplicacao, 'dd/MM/yyyy')}"></span>)
+    </h3>
+
+    <p th:if="${bloqueada}" class="erro-msg" style="text-align: center; font-size: 1.1em;">
         Esta avaliação já tem respostas, então as questões não podem mais ser alteradas.
     </p>
 
     <form th:action="@{/avaliacoes/{id}/questoes(id=${avaliacao.idAvaliacao})}" method="post">
-        <table border="1">
+        <table>
             <thead>
                 <tr><th>Usar</th><th>#</th><th>Enunciado</th><th>Tipo</th><th>Tema</th></tr>
             </thead>
             <tbody>
                 <tr th:each="q : ${questoes}">
-                    <td>
+                    <td style="text-align: center;">
                         <input type="checkbox" name="idsQuestoes"
                                th:value="${q.idQuestao}"
                                th:checked="${#lists.contains(selecionadas, q.idQuestao)}"
@@ -34,9 +39,11 @@
                 </tr>
             </tbody>
         </table>
-        <br>
-        <input type="submit" value="Salvar questões" th:disabled="${bloqueada}">
-        <a th:href="@{/avaliacoes}">Voltar</a>
+        
+        <div class="form-actions">
+            <input type="submit" value="Salvar questões" class="btn" th:disabled="${bloqueada}">
+            <a th:href="@{/avaliacoes}" class="btn btn-perigo">Voltar</a>
+        </div>
     </form>
 </body>
 </html>

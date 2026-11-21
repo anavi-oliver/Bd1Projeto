@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Responder</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div th:replace="~{fragments :: topo}"></div>
+
+    <h2 th:text="${avaliacao.titulo}"></h2>
+    <h3 style="text-align: center;" th:text="${avaliacao.descricao}"></h3>
+    
+    <p th:if="${erro}" class="erro-msg" style="text-align: center; font-size: 1.2em;" th:text="${erro}"></p>
+
+    <div class="form-container" style="max-width: 900px;">
+        <form th:action="@{/responder/{id}(id=${avaliacao.idAvaliacao})}" method="post">
+            
+            <th:block th:each="q, st : ${questoes}">
+                <h3 th:if="${st.first or q.nomeTema != questoes[st.index - 1].nomeTema}"
+                    th:text="${q.nomeTema}" style="margin-top: 30px; border-bottom: 1px solid var(--roxo);"></h3>
+
+                <div class="campo" style="margin-bottom: 25px; padding: 15px; background-color: #1a1a1a; border-radius: 8px;">
+                    <label><strong th:text="${st.count} + '. ' + ${q.enunciado}"></strong></label>
+
+                    <div th:if="${q.tipo == 'ESCALA'}" style="margin-top: 10px;">
+                        <label th:each="n : ${#numbers.sequence(1, 5)}" style="display: inline-block; margin-right: 15px; cursor: pointer;">
+                            <input type="radio" th:name="'valor_' + ${q.idQuestao}" th:value="${n}" required>
+                            <span th:text="${n}"></span>
+                        </label>
+                        <small style="display: block; margin-top: 5px; color: #aaa;">(1 = muito insatisfeito, 5 = muito satisfeito)</small>
+                    </div>
+
+                    <div th:if="${q.tipo == 'TEXTO'}" style="margin-top: 10px;">
+                        <textarea th:name="'texto_' + ${q.idQuestao}" rows="3"></textarea>
+                    </div>
+                </div>
+            </th:block>
+
+            <div class="form-actions">
+                <input type="submit" value="Enviar respostas" class="btn">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

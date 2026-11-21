@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Minhas avaliações</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body class="fundo-vermelho">
+    <div th:replace="~{fragments :: topo}"></div>
+
+    <h2>Minhas avaliações</h2>
+    
+    <table style="border: 3px solid #b152fe; box-shadow: 0 0 10px #2be2d3d8, 0 0 20px #2be2d3;">
+        <thead>
+            <tr><th>Título</th><th>Data</th><th>Início</th><th>Fim</th><th>Situação</th><th>Ação</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="a : ${avaliacoes}">
+                <td th:text="${a.titulo}"></td>
+                <td th:text="${#temporals.format(a.dataAplicacao, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#temporals.format(a.horaInicio, 'HH:mm')}"></td>
+                <td th:text="${#temporals.format(a.horaFim, 'HH:mm')}"></td>
+                <td th:text="${a.respondida} ? 'Respondida' : 'Pendente'"></td>
+                <td style="text-align: center;">
+                    <a th:if="${!a.respondida}" th:href="@{/responder/{id}(id=${a.idAvaliacao})}" class="btn">Responder</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

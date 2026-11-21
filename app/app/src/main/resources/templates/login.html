@@ -12,7 +12,7 @@
         }
 
         body {
-            background: url('/fundo1.png') no-repeat center center fixed;
+            background: url('/img/fundo1.png') no-repeat center center fixed;
             background-size: cover;
             background-color: #000000; /* Cor de fallback caso a imagem não carregue */
             margin: 0;
@@ -25,12 +25,18 @@
             overflow: hidden;
         }
 
+        /*outro fundo*/
+        body.fundo-avaliacao::before {
+            background: url('/fundo4.png') no-repeat center center;
+            background-size: cover;
+        }
+
         /* Imagem de fundo com blur */
         body::before {
             content: "";
             position: fixed;
             inset: -10px;
-            background: url('/fundo1.png') no-repeat center center;
+            background: url('/img/fundo1.png') no-repeat center center;
             background-size: cover;
             filter: blur(4px);
             z-index: -1;

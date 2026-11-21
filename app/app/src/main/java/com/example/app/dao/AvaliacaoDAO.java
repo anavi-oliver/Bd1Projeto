@@ -45,6 +45,26 @@ public class AvaliacaoDAO {
         return lista.isEmpty() ? null : lista.get(0);
     }
 
+    // avaliações designadas ao usuário, com a situação (respondida ou não)
+    public List<Avaliacao> listarDoUsuario(int idUsuario) {
+        String sql = """
+            SELECT a.id_avaliacao, a.titulo, a.descricao, a.data_aplicacao,
+                   a.hora_inicio, a.hora_fim,
+                   EXISTS (SELECT 1 FROM resposta r
+                           WHERE r.id_avaliacao = a.id_avaliacao
+                             AND r.id_usuario = au.id_usuario) AS respondida
+            FROM avaliacao_usuario au
+            JOIN avaliacao a ON a.id_avaliacao = au.id_avaliacao
+            WHERE au.id_usuario = ?
+            ORDER BY a.data_aplicacao DESC
+            """;
+        return jdbc.query(sql, (rs, linha) -> {
+            Avaliacao a = mapper.mapRow(rs, linha);
+            a.setRespondida(rs.getBoolean("respondida"));
+            return a;
+        }, idUsuario);
+    }
+
     public void inserir(Avaliacao a) {
         String sql = """
             INSERT INTO avaliacao (titulo, descricao, data_aplicacao, hora_inicio, hora_fim)

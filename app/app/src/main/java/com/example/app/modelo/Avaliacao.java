@@ -11,6 +11,7 @@ import java.time.LocalTime;
 //cadastro das avaliacoes q nem o questoes
 public class Avaliacao {
 
+    private  boolean respondida; 
     private int idAvaliacao;
 
     @NotBlank(message = "O título é obrigatório")
@@ -49,6 +50,9 @@ public int getIdAvaliacao() {
 public String getTitulo() {
     return titulo;
 }
+public boolean isRespondida(){
+    return  respondida;
+}
 
 
 public void setDataAplicacao(LocalDate dataAplicacao) {
@@ -68,6 +72,9 @@ public void setIdAvaliacao(int idAvaliacao) {
 }
 public void setTitulo(String titulo) {
     this.titulo = titulo;
+}
+public void setRespondida(boolean respondida) {
+    this.respondida = respondida;
 }
 
 }

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="topo" class="topo">
+        <nav>
+            <a th:href="@{/minhas-avaliacoes}" class="btn">Minhas avaliações</a>
+            <a th:href="@{/questoes}" class="btn">Questões</a>
+            <a th:href="@{/avaliacoes}" class="btn">Avaliações</a>
+        </nav>
+        <span class="saudacao">Olá, <span th:text="${session.usuarioLogado.nome}"></span>!</span>
+        <a th:href="@{/logout}" class="btn btn-perigo">[X] Sair da conta</a>
+    </div>
+</body>
+</html>

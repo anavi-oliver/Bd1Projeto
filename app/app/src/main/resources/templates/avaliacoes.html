@@ -3,66 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Avaliações</title>
-    <style>
-        body {
-            background-color: #000000;
-            color: #00FFFF;
-            font-family: "Verdana", sans-serif;
-            margin: 30px;
-        }
-        h2 {
-            color: #8A2BE2;
-            text-shadow: 2px 2px #00FFFF;
-            border-bottom: 2px dashed #8A2BE2;
-            padding-bottom: 5px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-        }
-        a {
-            color: #00FFFF;
-            text-decoration: none;
-            border: 1px solid #8A2BE2;
-            padding: 2px 6px;
-            background-color: #1a1a1a;
-            font-size: 0.9em;
-        }
-        a:hover {
-            background-color: #8A2BE2;
-            color: #000000;
-        }
-        table {
-            border-collapse: collapse;
-            width: 90%;
-            margin-top: 15px;
-            border: 3px solid #8A2BE2;
-            background-color: #0a0a0a;
-        }
-        th, td {
-            border: 1px solid #00FFFF;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #8A2BE2;
-            color: #000000;
-            font-family: "Comic Sans MS", cursive;
-        }
-        tr:hover {
-            background-color: #220044;
-        }
-        .nav-links {
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
 </head>
-<body>
-    <p class="nav-links">
-        <a th:href="@{/questoes}">~ Questões ~</a> |
-        <a th:href="@{/avaliacoes}">~ Avaliações ~</a> |
-        <a th:href="@{/logout}">[X] Sair</a>
-    </p>
-    <h2>Minhas Avaliações !!</h2>
-    <table>
+<body class="fundo-avaliacao">
+    <div th:replace="~{fragments :: topo}"></div>
+
+    <h2> Avaliações </h2>
+    
+    <table style="border: 3px solid #b152fe; box-shadow: 0 0 10px #2be2d3d8, 0 0 20px #2be2d3;">
         <thead>
             <tr>
                 <th>#</th><th>Título</th><th>Descrição</th><th>Data</th><th>Início</th><th>Fim</th>
@@ -77,12 +25,14 @@
                 <td th:text="${#temporals.format(a.dataAplicacao, 'dd/MM/yyyy')}"></td>
                 <td th:text="${#temporals.format(a.horaInicio, 'HH:mm')}"></td>
                 <td th:text="${#temporals.format(a.horaFim, 'HH:mm')}"></td>
-                <td><a th:href="@{/avaliacoes/{id}/questoes(id=${a.idAvaliacao})}">Montar</a></td>
-                <td><a th:href="@{/avaliacoes/{id}/usuarios(id=${a.idAvaliacao})}">Designar</a></td>
+                <td style="text-align: center;"><a th:href="@{/avaliacoes/{id}/questoes(id=${a.idAvaliacao})}" class="btn">Montar</a></td>
+                <td style="text-align: center;"><a th:href="@{/avaliacoes/{id}/usuarios(id=${a.idAvaliacao})}" class="btn">Designar</a></td>
             </tr>
         </tbody>
     </table>
-    <br>
-    <p><a th:href="@{/avaliacoes/nova}">+ Criar nova avaliação</a></p>
+    
+    <div class="form-actions">
+        <a th:href="@{/avaliacoes/nova}" class="btn">+ Criar nova avaliação</a>
+    </div>
 </body>
 </html>

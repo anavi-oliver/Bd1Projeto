@@ -2,95 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Nova questão</title>
-    <style>
-        body {
-            background-color: #000000;
-            color: #00FFFF;
-            font-family: "Verdana", sans-serif;
-            margin: 30px;
-        }
-        h2 {
-            color: #8A2BE2;
-            text-shadow: 2px 2px #00FFFF;
-            border-bottom: 2px dashed #8A2BE2;
-            padding-bottom: 5px;
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-        }
-        .user-greeting {
-            color: #FF00FF;
-            font-weight: bold;
-        }
-        a {
-            color: #00FFFF;
-            text-decoration: none;
-            border: 1px dotted #8A2BE2;
-            padding: 2px 6px;
-            background-color: #1a1a1a;
-        }
-        a:hover {
-            background-color: #8A2BE2;
-            color: #000000;
-        }
-        input, textarea, select {
-            background-color: #111111;
-            color: #00FFFF;
-            border: 1px solid #8A2BE2;
-            padding: 5px;
-            font-family: "Verdana", sans-serif;
-            margin-top: 5px;
-        }
-        input[type="submit"] {
-            background-color: #8A2BE2;
-            color: #000000;
-            font-weight: bold;
-            cursor: pointer;
-            border: 2px outset #00FFFF;
-        }
-        input[type="submit"]:active {
-            border: 2px inset #00FFFF;
-        }
-        span {
-            color: #FF00FF;
-            font-size: 0.85em;
-            margin-left: 10px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nova Questão</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
 </head>
 <body>
-    <p>
-        Olá, <span class="user-greeting" th:text="${session.usuarioLogado.nome}"></span>! | 
-        <a th:href="@{/logout}">[X] Sair</a>
-    </p>
-    
-    <h2>Adicionar Nova Questão...</h2>
-    
-    <form th:action="@{/questoes}" th:object="${questao}" method="post">
-        <label for="enunciado">Enunciado:</label><br>
-        <textarea th:field="*{enunciado}" id="enunciado" rows="4" cols="60"></textarea>
-        <span th:if="${#fields.hasErrors('enunciado')}" th:errors="*{enunciado}"></span>
-        <br><br>
+    <div th:replace="~{fragments :: topo}"></div>
 
-        <label for="tipo">Tipo:</label><br>
-        <select th:field="*{tipo}" id="tipo">
-            <option value="">-- escolha --</option>
-            <option value="ESCALA">Escala (1 a 5)</option>
-            <option value="TEXTO">Texto livre</option>
-        </select>
-        <span th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}"></span>
-        <br><br>
+    <h2>Nova Questão</h2>
 
-        <label for="idTema">Tema:</label><br>
-        <select th:field="*{idTema}" id="idTema">
-            <option value="0">-- escolha --</option>
-            <option th:each="t : ${temas}" th:value="${t.idTema}" th:text="${t.nome}"></option>
-        </select>
-        <span th:if="${#fields.hasErrors('idTema')}" th:errors="*{idTema}"></span>
-        <br><br>
+    <div class="form-container">
+        <form th:action="@{/questoes}" th:object="${questao}" method="post">
 
-        <input type="submit" value="[ Salvar ]">
-        <a th:href="@{/questoes}" style="margin-left: 10px;">Cancelar</a>
-    </form>
+            <div class="campo">
+                <label for="enunciado">Enunciado:</label>
+                <textarea th:field="*{enunciado}" id="enunciado" rows="4"></textarea>
+                <span class="erro-msg" th:if="${#fields.hasErrors('enunciado')}" th:errors="*{enunciado}"></span>
+            </div>
+
+            <div class="campo">
+                <label for="tipo">Tipo:</label>
+                <select th:field="*{tipo}" id="tipo">
+                    <option value="">-- escolha --</option>
+                    <option value="ESCALA">Escala (1 a 5)</option>
+                    <option value="TEXTO">Texto livre</option>
+                </select>
+                <span class="erro-msg" th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}"></span>
+            </div>
+
+            <div class="campo">
+                <label for="idTema">Tema:</label>
+                <select th:field="*{idTema}" id="idTema">
+                    <option value="0">-- escolha --</option>
+                    <option th:each="t : ${temas}" th:value="${t.idTema}" th:text="${t.nome}"></option>
+                </select>
+                <span class="erro-msg" th:if="${#fields.hasErrors('idTema')}" th:errors="*{idTema}"></span>
+            </div>
+
+            <div class="form-actions">
+                <input type="submit" value="Salvar Questão" class="btn">
+                <a th:href="@{/questoes}" class="btn btn-perigo">Cancelar</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
