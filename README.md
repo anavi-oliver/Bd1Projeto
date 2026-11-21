@@ -54,12 +54,9 @@ As restrições de integridade (`PRIMARY KEY`, `FOREIGN KEY`, `NOT NULL`, `UNIQU
 
 ---
 ## Como rodar
-### Requisitos
-- JDK 17 ou superior
-- PostgreSQL 13 ou superior, com a extensão `pgcrypto`  (já vem com a instalação padrão)
-- Maven não precisa ser instalado pois o projeto usa o `mvnw`
 
 **Requisitos**
+
 - JDK 17 ou superior
 - PostgreSQL 13 ou superior, com a extensão `pgcrypto`  (já vem com a instalação padrão)
 - Maven não precisa ser instalado pois o projeto usa o `mvnw`
