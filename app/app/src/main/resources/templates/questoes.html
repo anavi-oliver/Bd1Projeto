@@ -4,25 +4,132 @@
 <head>
     <meta charset="UTF-8">
     <title>Questões</title>
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Audiowide&display=swap" rel="stylesheet">
+    <style>
 
+        body {
+            background: url('/fundo3.png') no-repeat center center fixed;           
+            background-size: cover;
+            background-color: #000000;
+            color: #00FFFF;
+            margin: 30px;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -10px;
+            background: url('/fundo3.png') no-repeat center center;
+            background-size: cover;
+            filter: blur(2px);
+            z-index: -1;
+        }
+
+       /*//minhas questoes!*/
+        h2 {
+            color: #8800fe;
+            -webkit-text-stroke: 1px #00ffe58c;
+            text-shadow: 2px 2px #00FFFF;
+            border-bottom: 2px dashed #8A2BE2;
+            padding-bottom: 5px;
+            font-family: 'Audiowide', sans-serif;
+            font-weight: 400;
+            font-size: 43px;
+            text-align: center;
+        }
+        a {
+            color: #00FFFF;
+            text-decoration: none;
+            border: 1px solid #dab6fd;
+            padding: 2px 6px;
+            background-color: #516c92;
+            font-size: 0.9em;
+            font-family: 'Audiowide', sans-serif;
+            margin-right: 5px;
+
+        }
+        a:hover {
+            background-color: #8A2BE2;
+            color: #000000;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-top: 15px;
+            margin: 15px auto;
+            align-content: center;
+            border: 4px bold #b152fe;
+            border: 3px solid #b152fe;
+            box-shadow: 0 0 10px #2be2d3d8, 0 0 20px #2be2d3;
+            background-color: #403f3fba;
+        }
+        th, td {
+            border: 2px solid #b152fe;
+            padding: 10px;
+            text-align: center;
+
+        }
+        th {
+            background-color: #8A2BE2;
+            color: #00ffea;
+             font-family: 'Audiowide', sans-serif;
+             
+        }
+        tr:hover {
+            background-color: #41047e;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+            text-align: left;
+            font-family: 'Audiowide', sans-serif;
+
+        }
+
+        .criarnovo{
+            text-align: end;
+        }
+
+        /*===========================================================*/
+    </style>
+</head>
 <body>
-    <p><a th:href="@{/questoes}">Questões</a> | <a th:href="@{/avaliacoes}">Avaliações</a> | <a th:href="@{/logout}">Sair</a></p>
-    <h2>Questões</h2>
-    <table border="1">
+    <p class="nav-links">
+        <a th:href="@{/questoes}">~ Questões ~</a> 
+        <a th:href="@{/avaliacoes}">~ Avaliações ~</a>  
+        <a th:href="@{/logout}">[X] Sair</a>
+    </p> 
+    <h2>Minhas Questões </h2>
+    
+    <table>
         <thead>
-            <tr><th>#</th><th>Enunciado</th><th>Tipo</th><th>Tema</th></tr>
+            <tr>
+                <th>#</th>
+                <th>Enunciado</th>
+                <th>Tipo</th>
+                <th>Tema</th>
+            </tr>
         </thead>
         <tbody>
-            <tr th:each="q : ${questoes}">
+ 
+            <tr th:each="q : ${questoes}">     
                 <td th:text="${q.idQuestao}"></td>
                 <td th:text="${q.enunciado}"></td>
                 <td th:text="${q.tipo}"></td>
                 <td th:text="${q.nomeTema}"></td>
             </tr>
+            
         </tbody>
+        
     </table>
-    <p><a th:href="@{/questoes/nova}">Nova questão</a></p>
+    
+    <br>
+    <p class= "criarnovo" >
+
+    <a th:href="@{/questoes/nova}">+ Criar nova questão</a>
+    </p>
 </body>
 
 </html>

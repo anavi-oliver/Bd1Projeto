@@ -3,18 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <title>Entrar</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url('/fundo1.png') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #000000; /* Cor de fallback caso a imagem não carregue */
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00FFFF;
+            font-family: "Verdana", sans-serif;
+            overflow: hidden;
+        }
+
+        /* Imagem de fundo com blur */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -10px;
+            background: url('/fundo1.png') no-repeat center center;
+            background-size: cover;
+            filter: blur(4px);
+            z-index: -1;
+        }
+
+        /* Painel de login */
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.80);
+            border: 2px solid #8A2BE2;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            padding: 35px 45px;
+            width: 380px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #8A2BE2;
+            text-shadow: 2px 2px #00FFFF;
+            border-bottom: 2px dashed #8A2BE2;
+            padding-bottom: 12px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 13px;
+            align-self: flex-start;
+            margin-top: 5px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            background-color: #111111;
+            color: #00FFFF;
+            border: 1px solid #8A2BE2;
+            padding: 10px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #00FFFF;
+            box-shadow: 0 0 8px #00FFFF;
+        }
+
+        input[type="submit"] {
+            background-color: #8A2BE2;
+            color: #000000;
+            font-weight: bold;
+            cursor: pointer;
+            border: 2px outset #00FFFF;
+            padding: 10px 25px;
+            margin-top: 15px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #00FFFF;
+            box-shadow: 0 0 12px #00FFFF;
+        }
+
+        input[type="submit"]:active {
+            border: 2px inset #00FFFF;
+        }
+
+        .erro {
+            color: #FF00FF;
+            font-weight: bold;
+            text-shadow: 1px 1px #FFFFFF;
+            font-size: 13px;
+        }
+
+    </style>
 </head>
+
 <body>
-    <h2>Entrar</h2>
-    <form th:action="@{/login}" method="post">
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required>
-        <br><br>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
-        <br><br>
-        <p th:if="${erro}" th:text="${erro}" style="color: red;"></p>
-        <input type="submit" value="Entrar">
-    </form>
+
+    <div class="login-container">
+
+        <h2>Entrar na Conta</h2>
+
+        <form th:action="@{/login}" method="post">
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <p class="erro" th:if="${erro}" th:text="${erro}"></p>
+
+            <input type="submit" value="[ Entrar ]">
+
+        </form>
+
+    </div>
+
 </body>
 </html>

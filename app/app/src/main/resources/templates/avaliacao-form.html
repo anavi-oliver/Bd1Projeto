@@ -3,9 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Nova avaliação</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #00FFFF;
+            font-family: "Verdana", sans-serif;
+            margin: 30px;
+        }
+        h2 {
+            color: #8A2BE2;
+            text-shadow: 2px 2px #00FFFF;
+            border-bottom: 2px dashed #8A2BE2;
+            padding-bottom: 5px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+        }
+        a {
+            color: #00FFFF;
+            text-decoration: none;
+            border: 1px dotted #8A2BE2;
+            padding: 2px 6px;
+            background-color: #1a1a1a;
+            margin-left: 10px;
+        }
+        a:hover {
+            background-color: #8A2BE2;
+            color: #000000;
+        }
+        input, textarea, select {
+            background-color: #111111;
+            color: #00FFFF;
+            border: 1px solid #8A2BE2;
+            padding: 5px;
+            font-family: "Verdana", sans-serif;
+            margin-top: 5px;
+        }
+        input[type="submit"] {
+            background-color: #8A2BE2;
+            color: #000000;
+            font-weight: bold;
+            cursor: pointer;
+            border: 2px outset #00FFFF;
+        }
+        input[type="submit"]:active {
+            border: 2px inset #00FFFF;
+        }
+        span {
+            color: #FF00FF; /* Rosa neon para erros */
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Nova avaliação</h2>
+    <h2>Nova avaliação xD</h2>
     <form th:action="@{/avaliacoes}" th:object="${avaliacao}" method="post">
         <label for="titulo">Título:</label><br>
         <input type="text" th:field="*{titulo}" id="titulo" size="50">
@@ -13,25 +64,25 @@
         <br><br>
 
         <label for="descricao">Descrição:</label><br>
-        <textarea th:field="*{descricao}" id="descricao" rows="3" cols="60"></textarea>
+        <textarea th:field="*{descricao}" id="descricao" rows="4" cols="60"></textarea>
         <br><br>
 
-        <label for="dataAplicacao">Data:</label>
+        <label for="dataAplicacao">Data:</label><br>
         <input type="date" th:field="*{dataAplicacao}" id="dataAplicacao">
         <span th:if="${#fields.hasErrors('dataAplicacao')}" th:errors="*{dataAplicacao}"></span>
         <br><br>
 
-        <label for="horaInicio">Início:</label>
+        <label for="horaInicio">Início:</label><br>
         <input type="time" th:field="*{horaInicio}" id="horaInicio">
         <span th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}"></span>
         <br><br>
 
-        <label for="horaFim">Fim:</label>
+        <label for="horaFim">Fim:</label><br>
         <input type="time" th:field="*{horaFim}" id="horaFim">
         <span th:if="${#fields.hasErrors('horaFim')}" th:errors="*{horaFim}"></span>
         <br><br>
 
-        <input type="submit" value="Salvar">
+        <input type="submit" value="[ Salvar ]">
         <a th:href="@{/avaliacoes}">Cancelar</a>
     </form>
 </body>
