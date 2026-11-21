@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quem responde</title>
+</head>
+<body>
+    <p><a th:href="@{/questoes}">Questões</a> | <a th:href="@{/avaliacoes}">Avaliações</a> | <a th:href="@{/logout}">Sair</a></p>
+    <h2>Quem deve responder</h2>
+    <p><strong th:text="${avaliacao.titulo}"></strong>
+       (<span th:text="${#temporals.format(avaliacao.dataAplicacao, 'dd/MM/yyyy')}"></span>)</p>
+
+    <table border="1">
+        <thead>
+            <tr><th>Grupo</th><th>Usuários</th><th>Já designados</th><th></th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="g : ${grupos}">
+                <td th:text="${g.nome}"></td>
+                <td th:text="${g.total}"></td>
+                <td th:text="${g.designados}"></td>
+                <td>
+                    <form th:action="@{/avaliacoes/{id}/usuarios(id=${avaliacao.idAvaliacao})}" method="post">
+                        <input type="hidden" name="idGrupo" th:value="${g.idGrupo}">
+                        <input type="submit" value="Designar grupo" th:disabled="${g.designados >= g.total}">
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p><a th:href="@{/avaliacoes}">Voltar</a></p>
+</body>
+</html>

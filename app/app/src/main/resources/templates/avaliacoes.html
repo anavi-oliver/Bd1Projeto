@@ -57,14 +57,17 @@
 </head>
 <body>
     <p class="nav-links">
-        <a th:href="@{/questoes}">~ Questões ~</a> | 
-        <a th:href="@{/avaliacoes}">~ Avaliações ~</a> | 
+        <a th:href="@{/questoes}">~ Questões ~</a> |
+        <a th:href="@{/avaliacoes}">~ Avaliações ~</a> |
         <a th:href="@{/logout}">[X] Sair</a>
     </p>
     <h2>Minhas Avaliações !!</h2>
     <table>
         <thead>
-            <tr><th>#</th><th>Título</th><th>Descrição</th><th>Data</th><th>Início</th><th>Fim</th></tr><td><a th:href="@{/avaliacoes/{id}/questoes(id=${a.idAvaliacao})}">Montar</a></td>
+            <tr>
+                <th>#</th><th>Título</th><th>Descrição</th><th>Data</th><th>Início</th><th>Fim</th>
+                <th>Questões</th><th>Quem responde</th>
+            </tr>
         </thead>
         <tbody>
             <tr th:each="a : ${avaliacoes}">
@@ -74,6 +77,8 @@
                 <td th:text="${#temporals.format(a.dataAplicacao, 'dd/MM/yyyy')}"></td>
                 <td th:text="${#temporals.format(a.horaInicio, 'HH:mm')}"></td>
                 <td th:text="${#temporals.format(a.horaFim, 'HH:mm')}"></td>
+                <td><a th:href="@{/avaliacoes/{id}/questoes(id=${a.idAvaliacao})}">Montar</a></td>
+                <td><a th:href="@{/avaliacoes/{id}/usuarios(id=${a.idAvaliacao})}">Designar</a></td>
             </tr>
         </tbody>
     </table>
