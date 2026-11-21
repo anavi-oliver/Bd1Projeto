@@ -64,7 +64,7 @@
     <h2>Minhas Avaliações !!</h2>
     <table>
         <thead>
-            <tr><th>#</th><th>Título</th><th>Descrição</th><th>Data</th><th>Início</th><th>Fim</th></tr>
+            <tr><th>#</th><th>Título</th><th>Descrição</th><th>Data</th><th>Início</th><th>Fim</th></tr><td><a th:href="@{/avaliacoes/{id}/questoes(id=${a.idAvaliacao})}">Montar</a></td>
         </thead>
         <tbody>
             <tr th:each="a : ${avaliacoes}">
