@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Relatórios</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div th:replace="~{fragments :: topo}"></div>
+
+    <h2>Relatórios</h2>
+
+    <div class="form-container">
+        <p><a th:href="@{/relatorios/media-tema}" class="btn">1. Média por tema em cada avaliação</a></p>
+        <p><a th:href="@{/relatorios/pendentes}" class="btn">2. Quem ainda não respondeu</a></p>
+    </div>
+</body>
+</html>

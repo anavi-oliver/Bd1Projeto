@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titulo}">Relatório</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div th:replace="~{fragments :: topo}"></div>
+
+    <h2 th:text="${titulo}"></h2>
+    <p class="objetivo" th:text="${objetivo}"></p>
+
+    <div class="grafico-container">
+        <canvas id="grafico"></canvas>
+    </div>
+
+    <table>
+        <thead>
+            <tr><th th:each="c : ${cabecalhos}" th:text="${c}"></th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="l : ${linhas}">
+                <td th:each="col : ${colunas}" th:text="${l[col]}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><a th:href="@{/relatorios}" class="btn">Voltar aos relatórios</a></p>
+
+    <script th:src="@{/js/chart.umd.js}"></script>
+    <script th:inline="javascript">
+        const tipo   = /*[[${tipo}]]*/ 'bar';
+        const labels = /*[[${labels}]]*/ [];
+        const series = /*[[${series}]]*/ [];
+        const yMax   = /*[[${yMax}]]*/ null;
+
+        Chart.defaults.color = '#00ffff';
+        Chart.defaults.borderColor = '#8a2be2';
+
+        const paleta = ['#00ffff', '#b152fe', '#ff6c6c', '#ffd166', '#2ff8a0', '#4996b5'];
+        series.forEach((s, i) => {
+            s.backgroundColor = paleta[i % paleta.length];
+            s.borderColor = paleta[i % paleta.length];
+        });
+
+        new Chart(document.getElementById('grafico'), {
+            type: tipo,
+            data: { labels: labels, datasets: series },
+            options: {
+                scales: { y: { beginAtZero: true, max: yMax === null ? undefined : yMax } }
+            }
+        });
+    </script>
+</body>
+</html>
