@@ -22,12 +22,12 @@
         </thead>
         <tbody>
             <tr th:each="l : ${linhas}">
-                <td th:each="col : ${colunas}" th:text="${l[col]}"></td>
+                <td th:each="col : ${colunas}" th:text="${l.get(col)}"></td>
             </tr>
         </tbody>
     </table>
 
-    <p><a th:href="@{/relatorios}" class="btn">Voltar aos relatórios</a></p>
+<p><a th:href="@{/relatorios}" class="btn">Voltar aos relatórios</a></p>
 
     <script th:src="@{/js/chart.umd.js}"></script>
     <script th:inline="javascript">
