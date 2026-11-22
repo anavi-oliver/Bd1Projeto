@@ -11,7 +11,23 @@
 
     <h2 th:text="${titulo}"></h2>
     <p class="objetivo" th:text="${objetivo}"></p>
+    <form th:if="${filtro == 'grupos'}" method="get" class="filtros">
+        <label>Início: <input type="date" name="inicio" th:value="${inicio}"></label>
+        <label>Fim: <input type="date" name="fim" th:value="${fim}"></label>
+        <label th:each="g : ${todosGrupos}">
+            <input type="checkbox" name="grupos" th:value="${g}"
+                   th:checked="${#lists.contains(gruposEscolhidos, g)}">
+            <span th:text="${g}"></span>
+        </label>
+        <input type="submit" value="Filtrar" class="btn">
+    </form>
 
+    <form th:if="${filtro == 'busca'}" method="get" class="filtros">
+        <label>Buscar no enunciado:
+            <input type="text" name="busca" th:value="${busca}" placeholder="ex.: escala 1">
+        </label>
+        <input type="submit" value="Buscar" class="btn">
+    </form>
     <div class="grafico-container">
         <canvas id="grafico"></canvas>
     </div>
@@ -35,6 +51,17 @@
         const labels = /*[[${labels}]]*/ [];
         const series = /*[[${series}]]*/ [];
         const yMax   = /*[[${yMax}]]*/ null;
+            const horizontal = /*[[${horizontal}]]*/ false;
+        const eixoValor = { beginAtZero: true, max: yMax === null ? undefined : yMax };
+
+        new Chart(document.getElementById('grafico'), {
+            type: tipo,
+            data: { labels: labels, datasets: series },
+            options: {
+                indexAxis: horizontal ? 'y' : 'x',
+                scales: horizontal ? { x: eixoValor } : { y: eixoValor }
+            }
+        });
 
         Chart.defaults.color = '#00ffff';
         Chart.defaults.borderColor = '#8a2be2';
