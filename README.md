@@ -1,4 +1,3 @@
-# EM DESENVOLVIMENTO
 # Sistema de Avaliações: Pesquisa de Satisfação
 Projeto da disciplina **Banco de Dados I (UEL)**, Prof. Dr. Anderson Paulo Avila Santos.
 
