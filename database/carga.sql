@@ -5,6 +5,8 @@ SELECT setseed(0.42);  -- deixa o random() repetível: a carga gera sempre os me
 
 INSERT INTO grupo (nome) VALUES ('CC-2026'), ('Engenharia'), ('Medicina'), ('Direito');
 INSERT INTO tema (nome) VALUES ('Infraestrutura'), ('Atendimento'), ('Conteúdo'), ('Organização'), ('Comunicação');
+-- perfis: usuario1 e usuario2 são adms
+UPDATE usuario SET administrador = TRUE WHERE id_usuario IN (1, 2);
 
 INSERT INTO usuario (nome, email, senha_hash, id_grupo)
 SELECT 'Usuário ' || n, 'usuario' || n || '@exemplo.com', crypt('123456', gen_salt('bf')), (n % 4) + 1 FROM generate_series(1, 24) AS n;

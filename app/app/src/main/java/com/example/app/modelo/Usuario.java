@@ -5,6 +5,10 @@ public class Usuario {
     private String nome;
     private String email;
     private int idGrupo;
+    private String nomeGrupo; 
+    private boolean administrador;
+
+
 
 public String getEmail() {
     return email;
@@ -18,6 +22,15 @@ public int getIdUsuario() {
 public String getNome() {
     return nome;
 }
+public boolean isAdministrador() { 
+    return administrador; 
+}
+public String getNomeGrupo() {
+     return nomeGrupo; 
+    }
+
+
+
 
 public void setEmail(String email) {
     this.email = email;
@@ -31,5 +44,13 @@ public void setIdUsuario(int idUsuario) {
 public void setNome(String nome) {
     this.nome = nome;
 }
+public void setAdministrador(boolean administrador) { 
+    this.administrador = administrador; 
+}
+public void setNomeGrupo(String nomeGrupo) { 
+    this.nomeGrupo = nomeGrupo; 
+}
+
+
 
 }

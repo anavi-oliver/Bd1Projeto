@@ -34,6 +34,7 @@ CREATE TABLE usuario (
     email VARCHAR(120) NOT NULL UNIQUE,
     id_grupo INTEGER NOT NULL,
     senha_hash TEXT NOT NULL,
+    administrador BOOLEAN NOT NULL DEFAULT FALSE, --ADM!!!!
     FOREIGN KEY (id_grupo) REFERENCES grupo(id_grupo)
 );
 
