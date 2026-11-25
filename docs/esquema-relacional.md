@@ -54,4 +54,4 @@ O esquema está na 3FN. Todas as relações têm chave primária e atributos at�
 
 ## DER
 
-O desenho do DER está em [`DER.png`](DER.png).
+ [`DER.png`](DER.png).
