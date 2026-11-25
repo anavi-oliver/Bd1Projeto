@@ -9,6 +9,13 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/login", "/logout", "/error", "/css/**", "/js/**", "/img/**");
+        // 1) exige login em tudo, menos nestas rotas
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/login", "/logout", "/error", "/css/**", "/js/**", "/img/**");
+
+        // 2) estas rotas são só do administrador
+        registry.addInterceptor(new AdminInterceptor())
+                .addPathPatterns("/questoes/**", "/avaliacoes/**", "/relatorios/**", "/usuarios/**");
     }
 }

@@ -4,11 +4,15 @@
     <div th:fragment="topo" class="topo">
         <nav>
             <a th:href="@{/minhas-avaliacoes}" class="btn">Minhas avaliações</a>
-            <a th:href="@{/questoes}" class="btn">Questões</a>
-            <a th:href="@{/avaliacoes}" class="btn">Avaliações</a>
-            <a th:href="@{/relatorios}" class="btn">Relatórios</a>
+            <th:block th:if="${session.usuarioLogado.administrador}">
+                <a th:href="@{/questoes}" class="btn">Questões</a>
+                <a th:href="@{/avaliacoes}" class="btn">Avaliações</a>
+                <a th:href="@{/relatorios}" class="btn">Relatórios</a>
+                <a th:href="@{/usuarios}" class="btn">Usuários</a>
+            </th:block>
         </nav>
-        <span class="saudacao">Olá, <span th:text="${session.usuarioLogado.nome}"></span>!</span>
+        <span class="saudacao">Olá, <span th:text="${session.usuarioLogado.nome}"></span>!
+            <small th:if="${session.usuarioLogado.administrador}">(administrador)</small></span>
         <a th:href="@{/logout}" class="btn btn-perigo">[X] Sair da conta</a>
     </div>
 </body>

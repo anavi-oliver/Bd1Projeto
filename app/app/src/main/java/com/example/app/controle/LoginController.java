@@ -20,7 +20,7 @@ public class LoginController {
 
     @GetMapping("/")
     public String inicio() {
-        return "redirect:/questoes";
+        return "redirect:/minhas-avaliacoes";
     }
 
     @GetMapping("/login")
@@ -36,7 +36,7 @@ public class LoginController {
             return "login";
         }
         session.setAttribute("usuarioLogado", usuario);
-        return "redirect:/questoes";
+        return usuario.isAdministrador() ? "redirect:/questoes" : "redirect:/minhas-avaliacoes";
     }
 
     @GetMapping("/logout")

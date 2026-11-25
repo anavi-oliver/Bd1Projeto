@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Usuários</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div th:replace="~{fragments :: topo}"></div>
+
+    <h2>Usuários</h2>
+
+    <table>
+        <thead>
+            <tr><th>#</th><th>Nome</th><th>E-mail</th><th>Grupo</th><th>Perfil</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="u : ${usuarios}">
+                <td th:text="${u.idUsuario}"></td>
+                <td th:text="${u.nome}"></td>
+                <td th:text="${u.email}"></td>
+                <td th:text="${u.nomeGrupo}"></td>
+                <td th:text="${u.administrador} ? 'Administrador' : 'Respondente'"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
