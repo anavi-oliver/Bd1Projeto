@@ -3,7 +3,7 @@ Projeto da disciplina **Banco de Dados I (UEL)**, Prof. Dr. Anderson Paulo Avila
 
 Sistema web de avaliações, com banco de dados PostgreSQL, em que é possível cadastrar questões, montar avaliações com essas questões, indicar quem deve responder cada avaliação, registrar as respostas e, no fim, ver relatórios com tabelas e gráficos sobre os resultados.
 
-**Integrantes:** Ana Vitória Oliver Machado (Ciência da Computação)
+**Integrantes:** Ana Vitória Oliver Machado (Ciência da Computação) - 202500560681
 
 ## Sumário
 - [Natureza escolhida](#natureza-escolhida)
